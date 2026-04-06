@@ -5,7 +5,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/ambrose-kutti/n8n-news-digest?style=for-the-badge)](https://github.com/ambrose-kutti/n8n-news-digest/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/ambrose-kutti/n8n-news-digest?style=for-the-badge)](https://github.com/ambrose-kutti/n8n-news-digest/network)
 [![GitHub issues](https://img.shields.io/github/issues/ambrose-kutti/n8n-news-digest?style=for-the-badge)](https://github.com/ambrose-kutti/n8n-news-digest/issues)
-[![GitHub license](https://img.shields.io/github/license/ambrose-kutti/n8n-news-digest?style=for-the-badge)](https://github.com/ambrose-kutti/n8n-news-digest/LICENSE) <!-- TODO: Add a LICENSE file if not present -->
+[![GitHub license](https://img.shields.io/github/license/ambrose-kutti/n8n-news-digest?style=for-the-badge)](https://github.com/ambrose-kutti/n8n-news-digest/LICENSE)
 
 **Automate your daily news digest delivery straight to your inbox using n8n, RSS, and Gmail.**
 
