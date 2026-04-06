@@ -1,0 +1,304 @@
+{
+  "name": "news bot",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        0
+      ],
+      "id": "5e62a79e-d10f-4fec-9874-3bf778cdc5cc",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "arunambrose2004@gmail.com",
+        "subject": "=Daily News Digest – {{$json[\"Readable date\"]}}\n",
+        "message": "={{$json[\"message\"]}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "99fbd6e0-395f-476d-bf4d-544c1e521657",
+      "name": "Send a message",
+      "webhookId": "801d0833-4829-44ae-ae07-821b0eb0d456",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "shYHFTGhGOJ4o9FR",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        816,
+        -16
+      ],
+      "id": "e6ed26c1-c9c3-434e-8f28-4471421a9ef3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $items();\n\nconst world = items.filter(i => i.json.source === \"world\").slice(0, 10);\nconst tamil = items.filter(i => i.json.source === \"tamilnadu\").slice(0, 10);\nconst coimbatore = items.filter(i => i.json.source === \"coimbatore\").slice(0, 10);\n\nlet html = `<h2>Daily News Digest</h2>`;\n\nhtml += `<h3>🌍 World News</h3>`;\nworld.forEach((i, idx) => {\n  html += `<p>${idx+1}. <a href=\"${i.json.link}\" target=\"_blank\">${i.json.title}</a></p>`;\n});\n\nhtml += `<h3>📰 Tamil Nadu News</h3>`;\ntamil.forEach((i, idx) => {\n  html += `<p>${idx+1}. <a href=\"${i.json.link}\" target=\"_blank\">${i.json.title}</a></p>`;\n});\n\nhtml += `<h3>🏙️ Coimbatore News</h3>`;\ncoimbatore.forEach((i, idx) => {\n  html += `<p>${idx+1}. <a href=\"${i.json.link}\" target=\"_blank\">${i.json.title}</a></p>`;\n});\n\nreturn [{\n  json: {\n    message: html,\n    \"Readable date\": new Date().toDateString()\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "33797fb1-bcc8-4df6-a53c-47e26b7b0d64",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  today: new Date().toISOString().split('T')[0] // YYYY-MM-DD\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        0
+      ],
+      "id": "af28320b-8734-438c-8464-68f164c319e6",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=Tamil+Nadu&hl=en-IN&gl=IN&ceid=IN:en",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        208
+      ],
+      "id": "515b6968-aacd-4e0b-883b-602cc1048676",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=Coimbatore&hl=en-IN&gl=IN&ceid=IN:en",
+        "options": {
+          "customFields": "Limit = 10 "
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        -272
+      ],
+      "id": "bd63f13e-5d09-4c3b-bf19-86a358ee3ea7",
+      "name": "RSS Read1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(i => {\n  i.json.source = \"coimbatore\";\n  return i;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -272
+      ],
+      "id": "53f7dd4d-4f30-4c75-bc7e-2c4aba027f90",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(i => {\n  i.json.source = \"tamilnadu\";\n  return i;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        208
+      ],
+      "id": "82677119-a8c7-4db3-b64d-97a64ef137a2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "http://feeds.bbci.co.uk/news/world/rss.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "bfb5911e-3720-4e72-9c9d-7e9ea638c9de",
+      "name": "RSS Read2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(i => {\n  i.json.source = \"world\";\n  return i;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        0
+      ],
+      "id": "b286cc03-f2dd-4742-8432-fa93ebda9828",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "RSS Read2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "883a2aa7-5173-4c7e-86a7-ab09c62ded37",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b55aa2287d73330fd1db0b477d2afc16009d56d811b9aa5b0140c4b89f3460df"
+  },
+  "id": "2kIZcbjFPC6dwPp3",
+  "tags": []
+}
