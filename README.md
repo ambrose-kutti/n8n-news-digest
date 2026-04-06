@@ -113,9 +113,7 @@ We welcome contributions! If you have suggestions for improvements or new featur
 2. **Make your changes** to the `news bot.json` file.
 3. **Submit a pull request** with a clear description of your changes.
 
-## 📄 License
 
-This project is licensed under the [LICENSE_NAME](LICENSE) - see the LICENSE file for details. <!-- TODO: Add a LICENSE file (e.g., MIT, Apache 2.0) -->
 
 ## 🙏 Acknowledgments
 
