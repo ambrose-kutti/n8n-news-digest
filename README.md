@@ -25,7 +25,8 @@ This repository provides an automated workflow designed with **n8n** to deliver 
 
 ## 🖥️ Screenshots
 
-<!-- TODO: Add a screenshot of the n8n workflow canvas for better visualization -->
+<img width="1201" height="459" alt="Screenshot 2026-04-06 181036" src="https://github.com/user-attachments/assets/58a85604-1eba-471c-91e3-3b78989e97a8" />
+
 
 ## 🛠️ Tech Stack
 
