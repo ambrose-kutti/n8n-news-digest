@@ -25,7 +25,6 @@ This repository provides an automated workflow designed with **n8n** to deliver 
 
 ## 🖥️ Screenshots
 
-<img width="1201" height="459" alt="Screenshot 2026-04-06 181036" src="https://github.com/user-attachments/assets/58a85604-1eba-471c-91e3-3b78989e97a8" />
 <img width="1155" height="414" alt="Screenshot 2026-04-07 113857" src="https://github.com/user-attachments/assets/cd5d307f-16c5-45cf-9e22-ce6d4fd887d1" />
 
 
